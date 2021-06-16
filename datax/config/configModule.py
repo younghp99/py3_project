@@ -3,6 +3,7 @@
 purpose：
 @author: yhp
 '''
+from datax.dataSource.textfile import writer,reader
 configModule={
     "setting":{},
     "job":{
@@ -12,16 +13,11 @@ configModule={
             }
         },
         "content":{
-            "reader":{
-                    "name": "",
-                    "parameter":{}
-            },
-            "writer":{
-                "name": "",
-                "parameter": {}
-            }
         }
     }
 }
 if __name__ == '__main__':
-    print(configModule["job"]["content"]["reader"]["name"])
+    print(configModule["job"]["content"])
+    configModule["job"]["content"]["reader"]=reader('/aa/aa', [{"a": "a"}, {"b": "b"}], ',', 'true')
+    configModule["job"]["content"]["writer"]=writer('/aa/aa', 'output.txt', 'truncate', 'yyyy-MM-dd')
+    print(configModule["job"]["content"])

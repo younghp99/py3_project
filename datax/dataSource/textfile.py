@@ -4,6 +4,7 @@ purpose：文件类型数据源的读取和写入配置
 @author: yhp
 '''
 def reader(path,column_list,fieldDelimiter,skipHeader='false'):
+    #print("start create reader")
     name='txtfilereader'
     path=[path]
     encoding='UTF-8'
@@ -19,10 +20,16 @@ def reader(path,column_list,fieldDelimiter,skipHeader='false'):
             "skipHeader":skipHeader
         }
     }
+    #print(reader)
     return reader
+
 def writer(path,filename,writeMode,format):
+    #print("start create writer")
     path=path
     filename=filename
+    #truncate，写入前清理目录下一fileName前缀的所有文件。
+    #append，写入前不做任何处理，DataX TxtFileWriter直接使用filename写入，并保证文件名不冲突。
+    #nonConflict，如果目录下有fileName前缀的文件，直接报错。
     writeMode=writeMode
     format=format
     writer={
@@ -34,6 +41,7 @@ def writer(path,filename,writeMode,format):
                 "format": format
             }
     }
+    #print(writer)
     return writer
 if __name__ == '__main__':
     print(reader('/aa/aa',[{"a":"a"},{"b":"b"}],','))

@@ -1,6 +1,6 @@
 #-*- coding: UTF-8 -*-
 '''
-purpose：
+purpose：暂时不用
 @author: yhp
 '''
 import json

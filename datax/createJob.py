@@ -2,24 +2,25 @@
 '''
 @author: yhp
 '''
+import json
+from datax.dataSource.textfile import writer,reader
 from config.configModule import configModule
-job_reader_name='txtfilereader'
-job_writer_name='txtfilereader'
+job_reader_type='file'
+job_writer_type='file'
 job_settting_speed_channel=3
 file_name='/data/etl/etldata/filename.txt'
 fieldDelimiter=','
 column_list=''
 colunm_list=[]
-for i in range(0,5):
+for i in range(0,3):
     colunm_list.append({"index":i,"type":"string"})
-print(colunm_list)
 configModule["job"]["setting"]["speed"]["channel"]=job_settting_speed_channel
-configModule["job"]["content"]["reader"]["name"]=job_reader_name
-configModule["job"]["content"]["writer"]["name"]=job_writer_name
-configModule["job"]["content"]["reader"]["parameter"]["path"]=file_name
-configModule["job"]["content"]["reader"]["parameter"]["fieldDelimiter"]=fieldDelimiter
-configModule["job"]["content"]["writer"]["parameter"]["path"]=file_name
-configModule["job"]["content"]["writer"]["parameter"]["fieldDelimiter"]=fieldDelimiter
-configModule["job"]["content"]["writer"]["parameter"]["colunm"]=colunm_list
 
-print(configModule)
+#file2file,构建输入输出源
+job_reader=reader('/data/etl/etldata/output/input.txt',colunm_list,',','true')
+job_writer=writer('/data/etl/etldata/output', 'output.txt', 'truncate', 'yyyy-MM-dd')
+configModule["job"]["content"]["reader"]=job_reader
+configModule["job"]["content"]["writer"]=job_writer
+#输出到文件
+with open("./resultJob/result.json", "w") as fp:
+    fp.write(json.dumps(configModule,indent=4))
