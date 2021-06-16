@@ -3,7 +3,7 @@
 @author: yhp
 '''
 import json
-from datax.config import loadJson
+from datax.tool import loadJson
 
 
 def TxtFile(filename):
